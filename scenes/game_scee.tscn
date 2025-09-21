@@ -22,3 +22,9 @@ shape = SubResource("BoxShape3D_iq3lw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9668635, 0.25529388, 0, -0.25529388, 0.9668635, 0, 0, 0)
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SpawnPoint"]
+_spawnable_scenes = PackedStringArray("uid://citpthsxfmnse")
+spawn_path = NodePath("..")

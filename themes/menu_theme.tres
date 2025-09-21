@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cw60mb36qbf16"]
+
+[sub_resource type="SystemFont" id="SystemFont_wca60"]
+
+[resource]
+default_font = SubResource("SystemFont_wca60")

@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0okwjhgesjkm"]
+
+[ext_resource type="Script" uid="uid://bt2axtr62etbv" path="res://scripts/main_menu.gd" id="1_xdvgc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lumdm"]
+font_size = 40
+
+[node name="Control" type="Control" node_paths=PackedStringArray("main_menu_panel", "join_server_panel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xdvgc")
+main_menu_panel = NodePath("MainMenuPanel")
+join_server_panel = NodePath("JoinServerPanel")
+
+[node name="MainMenuPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MainMenuPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "GYATT"
+label_settings = SubResource("LabelSettings_lumdm")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="Button2" type="Button" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Join Game"
+
+[node name="Button3" type="Button" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="JoinServerPanel" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/HBoxContainer/Button" to="." method="_on_start_server_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/HBoxContainer/Button2" to="." method="_on_join_server_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/HBoxContainer/Button3" to="." method="quit_application"]
