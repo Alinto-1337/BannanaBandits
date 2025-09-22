@@ -1,7 +1,12 @@
 extends Node
 
 var peer: ENetMultiplayerPeer
+var player_prefab : PackedScene
 
+signal on_peer_connected(player_id: int)
+
+func _ready() -> void:
+	multiplayer.peer_connected.connect(_on_network_peer_connected)
 
 func _exit_tree() -> void:
 	disconnect_peer()
@@ -9,12 +14,23 @@ func _exit_tree() -> void:
 func disconnect_peer() -> void:
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 
-func create_server(port: int, max_clients: int):
+func create_server(port: int, max_clients: int) -> Error:
 	peer = ENetMultiplayerPeer.new()
-	peer.create_server(port, max_clients)
-	multiplayer.multiplayer_peer = peer
+	var error = peer.create_server(port, max_clients)
+	if error == OK:
+		multiplayer.multiplayer_peer = peer
+	
+	return error;
 
-func join_server(ip: String, port: int): 
+
+func join_server(ip: String, port: int) -> Error: 
 	peer = ENetMultiplayerPeer.new()
-	peer.create_client(ip, port)
-	multiplayer.multiplayer_peer = peer
+	var error = peer.create_client(ip, port)
+	if error == OK:
+		multiplayer.multiplayer_peer = peer
+	
+	return error
+
+func _on_network_peer_connected(id):
+	print("Gooober connected")
+	on_peer_connected.emit(id)

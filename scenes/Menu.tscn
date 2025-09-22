@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0okwjhgesjkm"]
+[gd_scene load_steps=5 format=3 uid="uid://b26mi3d6mv3k5"]
 
 [ext_resource type="Script" uid="uid://bt2axtr62etbv" path="res://scripts/main_menu.gd" id="1_xdvgc"]
+[ext_resource type="PackedScene" uid="uid://c5y4ojcd7mhhp" path="res://scenes/game_scee.tscn" id="2_upctu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lumdm"]
 font_size = 40
 
-[node name="Control" type="Control" node_paths=PackedStringArray("main_menu_panel", "join_server_panel")]
+[sub_resource type="LabelSettings" id="LabelSettings_xdvgc"]
+font_size = 38
+
+[node name="Control" type="Control" node_paths=PackedStringArray("main_menu_panel", "join_server_panel", "adress_input_line", "port_input_line")]
+custom_minimum_size = Vector2(10.6, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,10 +18,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xdvgc")
+game_scene = ExtResource("2_upctu")
 main_menu_panel = NodePath("MainMenuPanel")
 join_server_panel = NodePath("JoinServerPanel")
+adress_input_line = NodePath("JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer/AdressInputLine")
+port_input_line = NodePath("JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer/PortInputLine")
 
 [node name="MainMenuPanel" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 1
 anchors_preset = 8
@@ -61,7 +70,6 @@ text = "Quit
 "
 
 [node name="JoinServerPanel" type="PanelContainer" parent="."]
-visible = false
 custom_minimum_size = Vector2(500, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -76,6 +84,64 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="JoinServerPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JoinServerPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="JoinServerPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join  Game"
+label_settings = SubResource("LabelSettings_xdvgc")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="JoinServerPanel/MarginContainer/VBoxContainer"]
+modulate = Color(0.43134022, 0.43134025, 0.43134025, 1)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="JoinServerPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Adress: "
+
+[node name="AdressInputLine" type="LineEdit" parent="JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "127.0.0.1"
+expand_to_text_length = true
+
+[node name="Label" type="Label" parent="JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "  Port :"
+
+[node name="PortInputLine" type="LineEdit" parent="JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "7777"
+
+[node name="JoinButton" type="Button" parent="JoinServerPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Join"
+
+[node name="CancelButton" type="Button" parent="JoinServerPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Cancel"
+
 [connection signal="pressed" from="MainMenuPanel/MarginContainer/HBoxContainer/Button" to="." method="_on_start_server_pressed"]
 [connection signal="pressed" from="MainMenuPanel/MarginContainer/HBoxContainer/Button2" to="." method="_on_join_server_pressed"]
 [connection signal="pressed" from="MainMenuPanel/MarginContainer/HBoxContainer/Button3" to="." method="quit_application"]
+[connection signal="pressed" from="JoinServerPanel/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_server_confirm_pressed"]
+[connection signal="pressed" from="JoinServerPanel/MarginContainer/VBoxContainer/CancelButton" to="." method="back_to_main_menu"]

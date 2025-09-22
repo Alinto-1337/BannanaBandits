@@ -1,15 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5y4ojcd7mhhp"]
+[gd_scene load_steps=5 format=3 uid="uid://c5y4ojcd7mhhp"]
 
 [ext_resource type="PackedScene" uid="uid://citpthsxfmnse" path="res://scene_nodes/player.tscn" id="1_iq3lw"]
+[ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player_spawner.gd" id="1_qct62"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_024j8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iq3lw"]
 
 [node name="Node3D" type="Node3D"]
-
-[node name="Node3D" parent="." instance=ExtResource("1_iq3lw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1126416, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
@@ -24,7 +22,10 @@ shape = SubResource("BoxShape3D_iq3lw")
 transform = Transform3D(1, 0, 0, 0, 0.9668635, 0.25529388, 0, -0.25529388, 0.9668635, 0, 0, 0)
 
 [node name="SpawnPoint" type="Node3D" parent="."]
+script = ExtResource("1_qct62")
+player_scene = ExtResource("1_iq3lw")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SpawnPoint"]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://citpthsxfmnse")
-spawn_path = NodePath("..")
+spawn_path = NodePath("../SpawnPoint")
+spawn_limit = 5

@@ -18,8 +18,8 @@ var current_camera_pitch: float
 
 #region Entry
 
-func _ready() -> void:
-	if not is_multiplayer_authority():
+func _enter_tree() -> void:
+	if !is_multiplayer_authority():
 		camera_target.queue_free()
 
 
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 		velocity.y += jump_power
 	
 	if not is_on_floor():
-		print("is not on floor")
+		#print("is not on floor")
 		velocity.y += gravity;
 	
 	if velocity.y < max_fallspeed:
@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	print(velocity)
+	#print(velocity)
 	return
 
 #endregion
@@ -102,5 +102,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_camera(event.relative)
 
+@rpc("reliable") func init_player():
+	position = Vector3(0, 0, 0)  
 
 #endregion
