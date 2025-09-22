@@ -10,7 +10,7 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -3.975, 0)
 mesh = SubResource("BoxMesh_024j8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -21,11 +21,20 @@ shape = SubResource("BoxShape3D_iq3lw")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9668635, 0.25529388, 0, -0.25529388, 0.9668635, 0, 0, 0)
 
-[node name="SpawnPoint" type="Node3D" parent="."]
+[node name="SpawnPoint" type="Node3D" parent="." node_paths=PackedStringArray("peer_id_label")]
 script = ExtResource("1_qct62")
 player_scene = ExtResource("1_iq3lw")
+peer_id_label = NodePath("../CanvasLayer/Label")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SpawnPoint"]
 _spawnable_scenes = PackedStringArray("uid://citpthsxfmnse")
-spawn_path = NodePath("../SpawnPoint")
-spawn_limit = 5
+spawn_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.010000001
+anchor_bottom = 0.011000001
+offset_right = 237.8
+offset_bottom = 79.119995

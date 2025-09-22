@@ -16,11 +16,15 @@ var raw_move_input: Vector2
 
 var current_camera_pitch: float
 
+@export var player_id: int = 1:
+	set(id):
+		player_id = id
+		set_multiplayer_authority(id, true)
+
 #region Entry
 
 func _enter_tree() -> void:
-	if !is_multiplayer_authority():
-		camera_target.queue_free()
+	pass
 
 
 func _process(delta: float) -> void:

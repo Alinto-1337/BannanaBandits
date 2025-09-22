@@ -2,7 +2,10 @@ extends Node
 
 @export var player_scene: PackedScene
 
+@export var peer_id_label: Label
+
 func _ready() -> void:
+	peer_id_label.text = str(multiplayer.get_unique_id())
 	if multiplayer.is_server():
 		print("PlayerSpawner started on Server")
 		MultiplayerManager.on_peer_connected.connect(_on_peer_connected)
@@ -11,9 +14,9 @@ func _ready() -> void:
 func _on_peer_connected(id:int):
 	print("Server spawning PlayerPrefab")
 	spawn_player(id)
-	
 
 func spawn_player(id:int):
 	var player_instance = player_scene.instantiate()
-	player_instance.set_multiplayer_authority(id)
-	add_child(player_instance)
+	player_instance.name = str(id)
+	player_instance.player_id = id
+	add_child(player_instance, true)

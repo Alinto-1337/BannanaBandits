@@ -32,5 +32,5 @@ func join_server(ip: String, port: int) -> Error:
 	return error
 
 func _on_network_peer_connected(id):
-	print("Gooober connected")
+	print("Gooober connected: {id}")
 	on_peer_connected.emit(id)
