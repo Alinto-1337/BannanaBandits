@@ -12,11 +12,12 @@ func _ready() -> void:
 		spawn_player(1)
 
 func _on_peer_connected(id:int):
-	print("Server spawning PlayerPrefab")
 	spawn_player(id)
 
+@rpc("reliable", "authority", "call_local")
 func spawn_player(id:int):
 	var player_instance = player_scene.instantiate()
 	player_instance.name = str(id)
-	player_instance.player_id = id
+	if multiplayer.is_server():
+		player_instance.player_id = id
 	add_child(player_instance, true)

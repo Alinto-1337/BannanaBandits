@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bewgphssfmrlo"]
+
+[node name="Node3D" type="RigidBody3D"]
+gravity_scale = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]

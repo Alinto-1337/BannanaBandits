@@ -26,10 +26,6 @@ script = ExtResource("1_qct62")
 player_scene = ExtResource("1_iq3lw")
 peer_id_label = NodePath("../CanvasLayer/Label")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SpawnPoint"]
-_spawnable_scenes = PackedStringArray("uid://citpthsxfmnse")
-spawn_path = NodePath("..")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
