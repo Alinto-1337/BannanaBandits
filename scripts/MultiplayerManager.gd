@@ -32,5 +32,12 @@ func join_server(ip: String, port: int) -> Error:
 	return error
 
 func _on_network_peer_connected(id):
-	print("Gooober connected: {id}")
+	print("Gooober connected: {id}, i am: {my_id}".format({"id": id, "my_id": multiplayer.get_unique_id()}))
 	on_peer_connected.emit(id)
+	
+
+func print_net(string: String) -> void:
+	if multiplayer.has_multiplayer_peer():
+		print("(Peer " + str(multiplayer.get_unique_id()) + ") " + string)
+	else:
+		print("(No Multiplayer Connection) " + string)
