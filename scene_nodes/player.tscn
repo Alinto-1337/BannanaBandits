@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://citpthsxfmnse"]
+[gd_scene load_steps=9 format=3 uid="uid://citpthsxfmnse"]
 
 [ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_ltjn6"]
+[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_qdk22"]
+[ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_66y7s"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ltjn6"]
 properties/0/path = NodePath(".:position")
@@ -9,6 +11,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_ltjn6"]
+size = Vector3(0.05, 0.05, 0.15)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ckxq5"]
 
@@ -33,6 +38,23 @@ replication_config = SubResource("SceneReplicationConfig_ltjn6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054370224, 0.4363777, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraRoot"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraRoot"]
+transform = Transform3D(1, 0, 0, 0, 0.389124, -0.9211854, 0, 0.9211854, 0.389124, 0.3829264, -0.3715151, -0.45390755)
+visible = false
+mesh = SubResource("BoxMesh_ltjn6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CameraRoot/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.38912386, 0.92118543, 0, -0.92118543, 0.38912386, 0, -0.0579592, -0.07708919)
+mesh = SubResource("BoxMesh_ltjn6")
+skeleton = NodePath("../..")
+
+[node name="player_gun" type="Node3D" parent="CameraRoot/MeshInstance3D/MeshInstance3D2"]
+script = ExtResource("2_qdk22")
+bullet_scene = ExtResource("3_66y7s")
+fire_cooldown = 100.0
+bullet_gravity_factor = 0.0
+bullet_speed = 0.01
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_ckxq5")

@@ -1,30 +1,75 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5y4ojcd7mhhp"]
+[gd_scene load_steps=8 format=3 uid="uid://c5y4ojcd7mhhp"]
 
 [ext_resource type="PackedScene" uid="uid://citpthsxfmnse" path="res://scene_nodes/player.tscn" id="1_iq3lw"]
 [ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player_spawner.gd" id="1_qct62"]
+[ext_resource type="PackedScene" uid="uid://8kxem4gjvavq" path="res://scenes/Level1.tscn" id="3_31vj5"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_024j8"]
+[sub_resource type="GDScript" id="GDScript_qct62"]
+script/source = "extends Node3D
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iq3lw"]
+var match_scores : Array[Dictionary] 
+var current_match_index : int = 0
+
+var is_match_active : bool = false
+
+signal match_scores_changed
+
+func _ready() -> void:
+	MultiplayerManager.on_peer_connected.connect(on_peer_connected)
+
+func on_peer_connected(_id : int):
+	
+	pass
+
+func end_match():
+	is_match_active = false
+	pass
+
+func start_match():
+	is_match_active = true
+	current_match_index += 1
+	
+	# update match scores dict
+	pass
+
+func get_current_match_scores():
+	return match_scores.get(current_match_index)
+	
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qct62"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_31vj5"]
+sky_material = SubResource("ProceduralSkyMaterial_qct62")
+
+[sub_resource type="Environment" id="Environment_wmlc8"]
+background_mode = 2
+sky = SubResource("Sky_31vj5")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_qct62")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -3.975, 0)
-mesh = SubResource("BoxMesh_024j8")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wmlc8")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("BoxShape3D_iq3lw")
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://citpthsxfmnse")
+spawn_path = NodePath("..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9668635, 0.25529388, 0, -0.25529388, 0.9668635, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.5778861, 0.8161174, 0, -0.8161174, 0.5778861, 0, 0, 0)
 
 [node name="SpawnPoint" type="Node3D" parent="." node_paths=PackedStringArray("peer_id_label")]
 script = ExtResource("1_qct62")
 player_scene = ExtResource("1_iq3lw")
 peer_id_label = NodePath("../CanvasLayer/Label")
+
+[node name="Node3D" parent="." instance=ExtResource("3_31vj5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7193966, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

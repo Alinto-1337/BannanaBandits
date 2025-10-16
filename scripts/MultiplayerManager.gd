@@ -2,6 +2,7 @@ extends Node
 
 var peer: ENetMultiplayerPeer
 var player_prefab : PackedScene
+var peer_alias: Dictionary[int, String]
 
 signal on_peer_connected(player_id: int)
 
