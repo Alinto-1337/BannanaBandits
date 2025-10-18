@@ -64,7 +64,10 @@ func process_movement(delta: float) -> void:
 		target_move_input.x -= -1
 	if Input.is_action_pressed("move_left"):
 		target_move_input.x -= 1 
-		
+	
+	if Input.is_physical_key_pressed(KEY_ESCAPE):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	raw_move_input = target_move_input.normalized()
 	
 	move_input = lerp(move_input, raw_move_input, 10 * delta)
@@ -102,6 +105,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseButton:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	
 	if event is InputEventMouseMotion:
 		rotate_camera(event.relative)

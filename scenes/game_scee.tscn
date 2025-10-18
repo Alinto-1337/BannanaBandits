@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://citpthsxfmnse" path="res://scene_nodes/player.tscn" id="1_iq3lw"]
 [ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player_spawner.gd" id="1_qct62"]
-[ext_resource type="PackedScene" uid="uid://8kxem4gjvavq" path="res://scenes/Level1.tscn" id="3_31vj5"]
+[ext_resource type="PackedScene" path="res://scenes/Level1.tscn" id="3_31vj5"]
 
 [sub_resource type="GDScript" id="GDScript_qct62"]
 script/source = "extends Node3D

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://citpthsxfmnse"]
+[gd_scene load_steps=8 format=3 uid="uid://citpthsxfmnse"]
 
 [ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_ltjn6"]
-[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_qdk22"]
+[ext_resource type="Script" path="res://scripts/player_gun.gd" id="2_qdk22"]
 [ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_66y7s"]
+[ext_resource type="PackedScene" uid="uid://cckke22obridf" path="res://models/test_character.fbx" id="4_27ed2"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ltjn6"]
 properties/0/path = NodePath(".:position")
@@ -15,12 +16,8 @@ properties/1/replication_mode = 1
 [sub_resource type="BoxMesh" id="BoxMesh_ltjn6"]
 size = Vector3(0.05, 0.05, 0.15)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ckxq5"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ltjn6"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_qdk22"]
-size = Vector3(0.4, 0.2, 0.8)
+height = 2.2139893
 
 [node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_target")]
 script = ExtResource("1_ltjn6")
@@ -35,13 +32,12 @@ camera_target = NodePath("CameraRoot")
 replication_config = SubResource("SceneReplicationConfig_ltjn6")
 
 [node name="CameraRoot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054370224, 0.4363777, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054370224, 1.0515976, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraRoot"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CameraRoot"]
 transform = Transform3D(1, 0, 0, 0, 0.389124, -0.9211854, 0, 0.9211854, 0.389124, 0.3829264, -0.3715151, -0.45390755)
-visible = false
 mesh = SubResource("BoxMesh_ltjn6")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CameraRoot/MeshInstance3D"]
@@ -52,16 +48,13 @@ skeleton = NodePath("../..")
 [node name="player_gun" type="Node3D" parent="CameraRoot/MeshInstance3D/MeshInstance3D2"]
 script = ExtResource("2_qdk22")
 bullet_scene = ExtResource("3_66y7s")
-fire_cooldown = 100.0
+fire_cooldown = 200.0
 bullet_gravity_factor = 0.0
-bullet_speed = 0.01
+bullet_speed = 0.03
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_ckxq5")
+[node name="test_character" parent="." instance=ExtResource("4_27ed2")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.010990977, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06097412, 0)
 shape = SubResource("CapsuleShape3D_ltjn6")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.5391045e-07, 0, -0.9999999, 0, 1, 0, 3.5210607, 0, -4.3711385e-08, -0.007984579, 0.4111818, -0.38809305)
-mesh = SubResource("BoxMesh_qdk22")
