@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://citpthsxfmnse"]
 
 [ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_ltjn6"]
-[ext_resource type="Script" path="res://scripts/player_gun.gd" id="2_qdk22"]
+[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_qdk22"]
 [ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_66y7s"]
 [ext_resource type="PackedScene" uid="uid://cckke22obridf" path="res://models/test_character.fbx" id="4_27ed2"]
 
@@ -19,14 +19,15 @@ size = Vector3(0.05, 0.05, 0.15)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ltjn6"]
 height = 2.2139893
 
-[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_target")]
+[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_rotation_root")]
 script = ExtResource("1_ltjn6")
 walk_speed = 6.0
 sprint_speed = 10.0
 jump_power = 15.0
 gravity = -0.3
 max_fallspeed = -20.0
-camera_target = NodePath("CameraRoot")
+camera_rotation_root = NodePath("CameraRoot")
+camera_rotation_stiffness = 10.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ltjn6")

@@ -9,12 +9,14 @@ extends CharacterBody3D
 @export var max_fallspeed: float = 20
 
 @export_group("Camera")
-@export var camera_target: Node3D
+@export var camera_rotation_root: Node3D
+@export var camera_rotation_stiffness: float = 2;
 
 var move_input: Vector2
 var raw_move_input: Vector2
 
-var current_camera_pitch: float
+var target_camera_rotation: Vector3
+var current_camera_rotation: Vector3
 
 @export var player_id: int = 1:
 	set(id):
@@ -24,6 +26,7 @@ var current_camera_pitch: float
 #region Entry
 
 func _enter_tree() -> void:
+	current_camera_rotation = rotation_degrees
 	pass
 
 
@@ -33,6 +36,7 @@ func _process(delta: float) -> void:
 		return
 	
 	process_movement(delta)
+	_update_camera_rotation(delta);
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y += jump_power
@@ -80,19 +84,20 @@ func process_movement(delta: float) -> void:
 	velocity.y = previous_y_velocity
 	return
 
+func _update_camera_rotation(delta: float) -> void:
+	current_camera_rotation = lerp(current_camera_rotation, target_camera_rotation, camera_rotation_stiffness * delta) as Vector3;
+	# rotate up and down
+	camera_rotation_root.rotation_degrees.x = current_camera_rotation.x
+	# rotate side to side
+	rotation_degrees.y = current_camera_rotation.y
+
 #endregion
 
 #region Camera
 
-func rotate_camera(delta: Vector2) -> void:
-	
-	rotation_degrees.y -= delta.x
-	#print(delta)
-	current_camera_pitch -= delta.y
-	current_camera_pitch = clamp(current_camera_pitch, -90, 90)
-	camera_target.rotation_degrees.x = current_camera_pitch
-	
-	return
+func register_camera_rotation_input(delta: Vector2) -> void:
+	target_camera_rotation -= Vector3(delta.y, delta.x, 0);
+	target_camera_rotation.x = clamp(target_camera_rotation.x, -90, 90);
 
 #endregion
 
@@ -108,7 +113,7 @@ func _input(event: InputEvent) -> void:
 	
 	
 	if event is InputEventMouseMotion:
-		rotate_camera(event.relative)
+		register_camera_rotation_input(event.relative)
 
 @rpc("reliable") func init_player():
 	position = Vector3(0, 0, 0)  

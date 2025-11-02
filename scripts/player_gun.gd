@@ -10,8 +10,8 @@ extends Node3D
 var _last_gun_fire_time: float
 
 func _process(delta: float) -> void:
-	
 	if not is_multiplayer_authority(): return
+	
 	if Input.is_action_pressed("gun_fire") and Time.get_ticks_msec() - _last_gun_fire_time > fire_cooldown:
 		_last_gun_fire_time = Time.get_ticks_msec()
 		
