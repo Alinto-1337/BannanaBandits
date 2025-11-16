@@ -11,3 +11,10 @@ func _process(_delta: float) -> void:
 	var t = Time.get_ticks_msec() - start_time
 	
 	global_position = start_pos + start_impulse_direction * t + gravity_factor * Vector3.DOWN
+
+
+func _ready() -> void:
+	
+	RayCast3D.new()
+	
+	pass

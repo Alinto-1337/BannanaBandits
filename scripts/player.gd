@@ -10,6 +10,7 @@ extends CharacterBody3D
 
 @export_group("Camera")
 @export var camera_rotation_root: Node3D
+@export var smooth_camera: bool = false
 @export var camera_rotation_stiffness: float = 2;
 
 var move_input: Vector2
@@ -85,7 +86,7 @@ func process_movement(delta: float) -> void:
 	return
 
 func _update_camera_rotation(delta: float) -> void:
-	current_camera_rotation = lerp(current_camera_rotation, target_camera_rotation, camera_rotation_stiffness * delta) as Vector3;
+	current_camera_rotation = lerp(current_camera_rotation, target_camera_rotation, camera_rotation_stiffness * delta) as Vector3 if smooth_camera else target_camera_rotation;
 	# rotate up and down
 	camera_rotation_root.rotation_degrees.x = current_camera_rotation.x
 	# rotate side to side

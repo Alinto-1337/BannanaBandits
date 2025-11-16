@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci0q4hqi5j31v"]
 
-[ext_resource type="Script" uid="uid://brabyxj1sxee8" path="res://scripts/multiplayer_bullet.gd" id="1_g7af2"]
+[ext_resource type="Script" path="res://scripts/multiplayer_bullet.gd" id="1_g7af2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4g6pf"]
 radius = 0.1
@@ -11,3 +11,6 @@ script = ExtResource("1_g7af2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_4g6pf")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, -3.04, 0)

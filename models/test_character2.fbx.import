@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cckke22obridf"
-path="res://.godot/imported/test_character.fbx-614223d00af931cc02f486370649f536.scn"
+uid="uid://dtcj1eoxaorob"
+path="res://.godot/imported/test_character2.fbx-85d2afcb63bf79306869f1add41cbd04.scn"
 
 [deps]
 
-source_file="res://models/test_character.fbx"
-dest_files=["res://.godot/imported/test_character.fbx-614223d00af931cc02f486370649f536.scn"]
+source_file="res://models/test_character2.fbx"
+dest_files=["res://.godot/imported/test_character2.fbx-85d2afcb63bf79306869f1add41cbd04.scn"]
 
 [params]
 
@@ -18,7 +18,7 @@ nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
-nodes/import_as_skeleton_bones=true
+nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
@@ -28,7 +28,7 @@ meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
-animation/import=false
+animation/import=true
 animation/fps=30
 animation/trimming=true
 animation/remove_immutable_tracks=true
