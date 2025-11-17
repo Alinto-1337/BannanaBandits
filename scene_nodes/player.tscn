@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=4 uid="uid://citpthsxfmnse"]
+[gd_scene load_steps=16 format=4 uid="uid://citpthsxfmnse"]
 
 [ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_ltjn6"]
 [ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_qdk22"]
 [ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_66y7s"]
+[ext_resource type="Script" uid="uid://m081h71j88ki" path="res://scripts/player_skeleton.gd" id="4_27ed2"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ltjn6"]
 properties/0/path = NodePath(".:position")
@@ -48,6 +49,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_56ayx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66y7s"]
+albedo_color = Color(0.55, 0.38500002, 0.1375, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x58or"]
 resource_name = "Material"
@@ -196,6 +200,9 @@ bind/38/name = &"Foot.L"
 bind/38/bone = -1
 bind/38/pose = Transform3D(7.481162e-08, 0.065261856, 0.9978677, 1.2994442e-08, 0.9978678, -0.06526174, -1, 1.0417836e-08, 1.5929069e-07, 0.07105408, -0.0018139975, -0.0061604083)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27ed2"]
+albedo_color = Color(0.21970367, 0.67957175, 0.77169436, 1)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ltjn6"]
 height = 2.2139893
 
@@ -217,6 +224,7 @@ replication_config = SubResource("SceneReplicationConfig_ltjn6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.052, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.9207873)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CameraRoot"]
 transform = Transform3D(1, 0, 0, 0, 0.389124, -0.9211854, 0, 0.9211854, 0.389124, 0.3829264, -0.3715151, -0.45390755)
@@ -274,7 +282,7 @@ bones/4/parent = 3
 bones/4/rest = Transform3D(0.9998656, -0.016337253, -0.0013722806, 0.016384525, 0.99869406, 0.048393786, 0.00057986693, -0.048409775, 0.9988274, -8.4894265e-11, 0.0068885414, 3.3399128e-10)
 bones/4/enabled = true
 bones/4/position = Vector3(-8.4894265e-11, 0.0068885414, 3.3399128e-10)
-bones/4/rotation = Quaternion(-0.024208795, -0.00048819633, 0.008183116, 0.9996733)
+bones/4/rotation = Quaternion(-0.024, 0.095, 0.008, 1)
 bones/4/scale = Vector3(1, 1.0000001, 1)
 bones/5/name = "Bone.005_end"
 bones/5/parent = 4
@@ -606,8 +614,15 @@ bones/51/position = Vector3(0, 0.011783877, 0)
 bones/51/rotation = Quaternion(0, 0, 0, 1)
 bones/51/scale = Vector3(1, 1, 1)
 
+[node name="SkeletonIK3D" type="SkeletonIK3D" parent="test_character2/Armature/Skeleton3D" node_paths=PackedStringArray("camera_root")]
+transform = Transform3D(0.05, 0, 0, 0, 0, -0.05, 0, 0.05, 0, 0, 0, 0.0011)
+root_bone = &"Bone.001"
+tip_bone = &"Bone.005"
+script = ExtResource("4_27ed2")
+camera_root = NodePath("../../../../CameraRoot")
+
 [node name="Hat" type="BoneAttachment3D" parent="test_character2/Armature/Skeleton3D"]
-transform = Transform3D(0.9999999, 3.583409e-10, 2.3836037e-07, 2.3748726e-07, 0.080311686, -0.9967697, -2.0761945e-08, 0.9967697, 0.080311626, 7.610937e-05, -0.0030391077, 0.0480679)
+transform = Transform3D(0.9819402, -0.004023392, 0.1891483, 0.18888238, 0.077939205, -0.9789018, -0.010803552, 0.99695, 0.07729154, 7.610937e-05, -0.0030391077, 0.0480679)
 bone_name = "Bone.005"
 bone_idx = 4
 
@@ -615,10 +630,12 @@ bone_idx = 4
 transform = Transform3D(1.3793261, 3.0970392e-07, -1.0497836e-07, 1.4346169e-09, 0.4370599, 1.3082507, 3.2700902e-07, -1.3082504, 0.43706, -8.884037e-05, 0.012798257, 0.0014049128)
 mesh = SubResource("ArrayMesh_66y7s")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_66y7s")
 
 [node name="Human" type="MeshInstance3D" parent="test_character2/Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_27ed2")
 skin = SubResource("Skin_x8nuj")
+surface_material_override/0 = SubResource("StandardMaterial3D_27ed2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ltjn6")

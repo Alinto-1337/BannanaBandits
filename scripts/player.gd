@@ -90,7 +90,7 @@ func _update_camera_rotation(delta: float) -> void:
 	# rotate up and down
 	camera_rotation_root.rotation_degrees.x = current_camera_rotation.x
 	# rotate side to side
-	rotation_degrees.y = current_camera_rotation.y
+	camera_rotation_root.rotation_degrees.y = current_camera_rotation.y
 
 #endregion
 
