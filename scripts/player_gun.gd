@@ -2,6 +2,7 @@ extends Node3D
 
 @export var bullet_scene: PackedScene
 @export var fire_cooldown: float
+@export var camera_root: Node3D
 
 @export_group("Bullet Settings")
 @export var bullet_gravity_factor: float = 1
@@ -18,21 +19,16 @@ func _process(delta: float) -> void:
 		if Time.get_ticks_usec() - _last_gun_fire_time > fire_cooldown:
 			print("gun_fire")
 			fire_bullet.rpc(
-				_last_gun_fire_time, 
 				global_position, 
-				global_basis * Vector3.FORWARD * bullet_speed, 
-				bullet_gravity_factor
 			);
 		
 
 @rpc("authority", "call_local")
-func fire_bullet(start_time:float, start_pos: Vector3, impulse_direction: Vector3, gravity_factor: float):
+func fire_bullet(start_pos: Vector3):
 	print("FIRE BULLET RCP")
 	var bullet: MultiplayerBullet = bullet_scene.instantiate()
-	bullet.start_time = start_time
-	bullet.position = start_pos
-	bullet.start_pos = start_pos
-	bullet.start_impulse_direction = impulse_direction
-	bullet.gravity_factor = gravity_factor
+	bullet.camera_root = camera_root;
+	bullet.position = start_pos;
+	bullet.start_pos = start_pos;
 	
 	get_tree().root.add_child(bullet);

@@ -24,7 +24,7 @@ func spawn_missing_players():
 	for peer in peers:
 		if not spawned_players.has(peer):
 			spawn_player(peer)
-	
+
 
 func spawn_player(id: int):
 	var player_instance = player_scene.instantiate()
