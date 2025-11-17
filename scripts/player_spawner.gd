@@ -2,12 +2,10 @@ extends Node
 
 @export var player_scene: PackedScene
 
-@export var peer_id_label: Label
-
 var spawned_players: Dictionary[int, Node3D]
 
 func _ready() -> void:
-	peer_id_label.text = str(multiplayer.get_unique_id())
+	DebugView.set_value("your_peer_id", str(multiplayer.get_unique_id()))
 	MultiplayerManager.on_peer_connected.connect(_on_peer_connected)
 	spawn_missing_players()
 

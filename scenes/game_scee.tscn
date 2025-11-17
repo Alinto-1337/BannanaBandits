@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://citpthsxfmnse" path="res://scene_nodes/player.tscn" id="1_iq3lw"]
 [ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player_spawner.gd" id="1_qct62"]
-[ext_resource type="PackedScene" path="res://scene_nodes/GameHUD.tscn" id="1_wmlc8"]
+[ext_resource type="PackedScene" uid="uid://dfwg0ab7c56b2" path="res://scene_nodes/GameHUD.tscn" id="1_wmlc8"]
 [ext_resource type="PackedScene" uid="uid://7ypt3txkjj55" path="res://scenes/Level2.tscn" id="4_wmlc8"]
 
 [sub_resource type="GDScript" id="GDScript_qct62"]
@@ -66,10 +66,9 @@ spawn_path = NodePath("..")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5778861, 0.8161174, 0, -0.8161174, 0.5778861, 0, 0, 0)
 
-[node name="SpawnPoint" type="Node3D" parent="." node_paths=PackedStringArray("peer_id_label")]
+[node name="SpawnPoint" type="Node3D" parent="."]
 script = ExtResource("1_qct62")
 player_scene = ExtResource("1_iq3lw")
-peer_id_label = NodePath("../CanvasLayer/Label")
 
 [node name="Node3D" parent="." instance=ExtResource("4_wmlc8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.075713, 0)

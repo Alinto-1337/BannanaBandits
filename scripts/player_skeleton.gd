@@ -13,5 +13,5 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	target = Transform3D(camera_root.basis, camera_root.position)
+	target = Transform3D(camera_root.global_basis, camera_root.global_position)
 	pass
