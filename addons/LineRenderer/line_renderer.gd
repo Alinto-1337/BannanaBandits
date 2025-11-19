@@ -1,5 +1,6 @@
 @tool
 extends MeshInstance3D
+class_name LineRenderer3D
 
 @export var points: Array[Vector3] = [Vector3(0,0,0),Vector3(0,5,0)]:
 	set(new_points): points = new_points

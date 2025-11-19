@@ -22,7 +22,7 @@ var raw_move_input: Vector2
 
 var _mouse_delta_sign: Vector2i
 
-var target_camera_rotation: Vector3
+@export var target_camera_rotation: Vector3
 var current_camera_rotation: Vector3
 
 @export var player_id: int = 1:
@@ -39,12 +39,14 @@ func _enter_tree() -> void:
 
 func _process(delta: float) -> void:
 	
+	_update_camera_rotation(delta);
+	_update_body_rotation(delta);
+	
 	if not is_multiplayer_authority():
 		return
 	
 	process_movement(delta)
-	_update_camera_rotation(delta);
-	_update_body_rotation(delta);
+	
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y += jump_power
@@ -97,7 +99,7 @@ func _update_camera_rotation(delta: float) -> void:
 	# rotate up and down
 	camera_rotation_root.rotation_degrees.x = current_camera_rotation.x
 
-	camera_rotation_root.rotation_degrees.y = target_camera_rotation.y
+	camera_rotation_root.rotation_degrees.y = current_camera_rotation.y
 	
 	#var head_body_angle_diff = camera_rotation_root.global_rotation_degrees.y - global_rotation_degrees.y
 	#head_body_angle_diff = min(head_body_angle_diff, 360 - head_body_angle_diff)
@@ -135,6 +137,7 @@ func _update_body_rotation(delta: float) -> void:
 #region Camera
 
 func register_camera_rotation_input(delta: Vector2) -> void:
+	if (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED): return
 	
 	_mouse_delta_sign = Vector2i(sign(delta.x), sign(delta.y))
 	target_camera_rotation -= Vector3(delta.y, delta.x, 0);
