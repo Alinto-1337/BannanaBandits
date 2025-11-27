@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0kr6rqfcxrr4"]
+
+[ext_resource type="Material" uid="uid://b3ipq3x146u0g" path="res://materials/particles/spark_particle_mat.tres" id="1_x0y47"]
+[ext_resource type="Material" uid="uid://da3v0qsy0b1od" path="res://materials/particles/spark_trail_particle_mat.tres" id="2_oav5e"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dslya"]
+lifetime_randomness = 0.08
+initial_velocity_min = 1.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -15.000002
+tangential_accel_max = 14.999997
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ttec"]
+lightmap_size_hint = Vector2i(5, 7)
+material = ExtResource("1_x0y47")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_1q5w1"]
+material = ExtResource("2_oav5e")
+size = 0.1
+section_length = 0.1
+section_segments = 10
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+trail_enabled = true
+trail_lifetime = 1.51
+process_material = SubResource("ParticleProcessMaterial_dslya")
+draw_passes = 2
+draw_pass_1 = SubResource("BoxMesh_6ttec")
+draw_pass_2 = SubResource("RibbonTrailMesh_1q5w1")
