@@ -1,6 +1,7 @@
 extends Node
 
 @export var player_scene: PackedScene
+@export var spectator_scene: PackedScene
 
 var spawned_players: Dictionary[int, Node3D]
 

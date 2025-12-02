@@ -4,12 +4,9 @@
 [ext_resource type="Material" uid="uid://da3v0qsy0b1od" path="res://materials/particles/spark_trail_particle_mat.tres" id="2_oav5e"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dslya"]
-lifetime_randomness = 0.08
 initial_velocity_min = 1.0
 initial_velocity_max = 20.0
 gravity = Vector3(0, 0, 0)
-tangential_accel_min = -15.000002
-tangential_accel_max = 14.999997
 
 [sub_resource type="BoxMesh" id="BoxMesh_6ttec"]
 lightmap_size_hint = Vector2i(5, 7)

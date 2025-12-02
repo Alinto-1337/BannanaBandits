@@ -51,7 +51,7 @@ sky = SubResource("Sky_31vj5")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Node3D" type="Node3D"]
+[node name="GameSceneRoot" type="Node3D"]
 script = SubResource("GDScript_qct62")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
