@@ -4,11 +4,9 @@ extends Node3D
 @export var fire_cooldown: float
 @export var camera_head: Node3D
 
-@export_group("Bullet Settings")
-@export var bullet_gravity_factor: float = 1
-@export var bullet_speed: float = 5
 
 var _last_gun_fire_time: float
+
 
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
@@ -31,8 +29,8 @@ func fire_bullet(start_pos: Vector3, shoot_direction: Vector3, line_start_pos: V
 	
 	var bullet: MultiplayerBullet = bullet_scene.instantiate();
 	
-	bullet.raycast_shoot_direction = shoot_direction;
 	bullet.raycast_start_pos = start_pos;
+	bullet.raycast_shoot_direction = shoot_direction;
 	bullet.line_start_pos = line_start_pos;
 	
 	get_tree().root.add_child(bullet);

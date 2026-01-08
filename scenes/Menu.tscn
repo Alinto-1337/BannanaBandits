@@ -25,8 +25,8 @@ adress_input_line = NodePath("JoinServerPanel/MarginContainer/VBoxContainer/HBox
 port_input_line = NodePath("JoinServerPanel/MarginContainer/VBoxContainer/HBoxContainer/PortInputLine")
 
 [node name="MainMenuPanel" type="PanelContainer" parent="."]
-visible = false
-custom_minimum_size = Vector2(300, 200)
+clip_contents = true
+custom_minimum_size = Vector2(504, 336)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,24 +52,33 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "GYATT"
+theme_override_font_sizes/font_size = 50
+text = "EPIC GAME"
 label_settings = SubResource("LabelSettings_lumdm")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="Button" type="Button" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Start Game"
 
 [node name="Button2" type="Button" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Join Game"
 
 [node name="Button3" type="Button" parent="MainMenuPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Quit
 "
 
 [node name="JoinServerPanel" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(500, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -101,7 +110,6 @@ label_settings = SubResource("LabelSettings_xdvgc")
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="JoinServerPanel/MarginContainer/VBoxContainer"]
-modulate = Color(0.43134022, 0.43134025, 0.43134025, 1)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="JoinServerPanel/MarginContainer/VBoxContainer"]

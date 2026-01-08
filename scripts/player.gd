@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player3D
 
 @export_group("Movement")
 @export var walk_speed: float
@@ -25,16 +26,16 @@ var _mouse_delta_sign: Vector2i
 @export var target_camera_rotation: Vector3
 var current_camera_rotation: Vector3
 
-@export var player_id: int = 1:
-	set(id):
-		player_id = id
-		set_multiplayer_authority(id, true)
-
 #region Entry
 
 func _enter_tree() -> void:
 	current_camera_rotation = rotation_degrees
+	set_multiplayer_authority(int(name.erase(0)), true);
 	pass
+
+func _ready() -> void:
+	if not is_multiplayer_authority():
+		$CameraRoot/HeadNode/Camera3D.queue_free();
 
 
 func _process(delta: float) -> void:
@@ -48,12 +49,14 @@ func _process(delta: float) -> void:
 	process_movement(delta)
 	
 	
-	if Input.is_action_just_pressed("jump"):
-		velocity.y += jump_power
+
 	
 	if not is_on_floor():
 		#print("is not on floor")
 		velocity.y += gravity;
+	elif Input.is_action_just_pressed("jump"):
+		velocity.y += jump_power
+	
 	
 	if velocity.y < max_fallspeed:
 		velocity.y = max_fallspeed

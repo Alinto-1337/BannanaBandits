@@ -1,42 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5y4ojcd7mhhp"]
+[gd_scene load_steps=12 format=3 uid="uid://c5y4ojcd7mhhp"]
 
 [ext_resource type="PackedScene" uid="uid://citpthsxfmnse" path="res://scene_nodes/player.tscn" id="1_iq3lw"]
+[ext_resource type="Script" uid="uid://c43t3aob758wb" path="res://scripts/game_controller.gd" id="1_nmwhh"]
 [ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player_spawner.gd" id="1_qct62"]
-[ext_resource type="PackedScene" uid="uid://dfwg0ab7c56b2" path="res://scene_nodes/GameHUD.tscn" id="1_wmlc8"]
+[ext_resource type="Script" uid="uid://6gywoeya3nwr" path="res://scripts/level_spawner.gd" id="2_31vj5"]
+[ext_resource type="PackedScene" uid="uid://bjc6x220lt225" path="res://scenes/Level1.tscn" id="3_nmwhh"]
+[ext_resource type="PackedScene" uid="uid://bewgphssfmrlo" path="res://scene_nodes/spectator_player.tscn" id="4_nmwhh"]
 [ext_resource type="PackedScene" uid="uid://7ypt3txkjj55" path="res://scenes/Level2.tscn" id="4_wmlc8"]
-
-[sub_resource type="GDScript" id="GDScript_qct62"]
-script/source = "extends Node3D
-
-var match_scores : Array[Dictionary] 
-var current_match_index : int = 0
-
-var is_match_active : bool = false
-
-signal match_scores_changed
-
-func _ready() -> void:
-	MultiplayerManager.on_peer_connected.connect(on_peer_connected)
-
-func on_peer_connected(_id : int):
-	
-	pass
-
-func end_match():
-	is_match_active = false
-	pass
-
-func start_match():
-	is_match_active = true
-	current_match_index += 1
-	
-	# update match scores dict
-	pass
-
-func get_current_match_scores():
-	return match_scores.get(current_match_index)
-	
-"
+[ext_resource type="PackedScene" uid="uid://b2kox2rhhewg0" path="res://scene_nodes/player_root.tscn" id="5_ohnid"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qct62"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -52,32 +23,43 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="GameSceneRoot" type="Node3D"]
-script = SubResource("GDScript_qct62")
+
+[node name="GameController" type="Node3D" parent="." node_paths=PackedStringArray("player_spawner", "level_spawner")]
+script = ExtResource("1_nmwhh")
+player_spawner = NodePath("../PlayerSpawner")
+level_spawner = NodePath("../LevelSpawner")
+max_health = 100
+gun_damage = Dictionary[String, int]({
+"Handy": 40
+})
+metadata/_custom_type_script = "uid://c43t3aob758wb"
+
+[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bjc6x220lt225", "uid://7ypt3txkjj55")
+spawn_path = NodePath("../LevelSpawner")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wmlc8")
 
-[node name="Control" parent="." instance=ExtResource("1_wmlc8")]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://citpthsxfmnse")
-spawn_path = NodePath("..")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5778861, 0.8161174, 0, -0.8161174, 0.5778861, 0, 0, 0)
 
-[node name="SpawnPoint" type="Node3D" parent="."]
+[node name="PlayerSpawner" type="Node" parent="."]
 script = ExtResource("1_qct62")
 player_scene = ExtResource("1_iq3lw")
+spectator_scene = ExtResource("4_nmwhh")
+player_root = ExtResource("5_ohnid")
+metadata/_custom_type_script = "uid://ec0yy5pjys8u"
 
-[node name="Node3D" parent="." instance=ExtResource("4_wmlc8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.075713, 0)
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="PlayerSpawner"]
+_spawnable_scenes = PackedStringArray("uid://b2kox2rhhewg0")
+spawn_path = NodePath("..")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_right = 0.010000001
-anchor_bottom = 0.011000001
-offset_right = 237.8
-offset_bottom = 79.119995
+[node name="LevelSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.79, 0)
+script = ExtResource("2_31vj5")
+levels = Dictionary[String, PackedScene]({
+"Gyatt": ExtResource("4_wmlc8"),
+"Sigma": ExtResource("3_nmwhh")
+})
+metadata/_custom_type_script = "uid://6gywoeya3nwr"

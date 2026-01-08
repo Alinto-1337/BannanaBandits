@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://citpthsxfmnse"]
+[gd_scene load_steps=19 format=4 uid="uid://citpthsxfmnse"]
 
 [ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_ltjn6"]
+[ext_resource type="PackedScene" uid="uid://dfwg0ab7c56b2" path="res://scene_nodes/GameHUD.tscn" id="2_6gvdm"]
 [ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_qdk22"]
-[ext_resource type="Script" uid="uid://cvon6iag6wde6" path="res://scripts/follow_joint_3d.gd" id="2_x8nuj"]
+[ext_resource type="Script" path="res://scripts/follow_joint_3d.gd" id="2_x8nuj"]
 [ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_66y7s"]
-[ext_resource type="Script" uid="uid://m081h71j88ki" path="res://scripts/player_skeleton.gd" id="4_27ed2"]
+[ext_resource type="Script" path="res://scripts/player_skeleton.gd" id="4_27ed2"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ltjn6"]
 properties/0/path = NodePath(".:position")
@@ -213,6 +214,7 @@ albedo_color = Color(0.21970367, 0.67957175, 0.77169436, 1)
 height = 2.2139893
 
 [node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_rotation_root", "body_rotation_root")]
+input_ray_pickable = false
 script = ExtResource("1_ltjn6")
 walk_speed = 6.0
 sprint_speed = 10.0
@@ -228,12 +230,13 @@ body_rotation_degree = 30.0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ltjn6")
 
+[node name="Control" parent="." instance=ExtResource("2_6gvdm")]
+
 [node name="Gun" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 1.4901161e-07, 0, -1.4901161e-07, 1, 0.00039044023, 0.64036167, -0.87837684)
 script = ExtResource("2_x8nuj")
 rotation_stiffness = 16.0
 target_node = NodePath("../CameraRoot/Guntarget")
-metadata/_custom_type_script = "uid://cvon6iag6wde6"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gun"]
 transform = Transform3D(1, 0, 0, 0, 0.38912386, -0.92118543, 0, 0.92118543, 0.38912386, 0, -0.048460126, 0.08338839)
@@ -256,8 +259,6 @@ script = ExtResource("2_qdk22")
 bullet_scene = ExtResource("3_66y7s")
 fire_cooldown = 200.0
 camera_head = NodePath("../../CameraRoot/HeadNode")
-bullet_gravity_factor = 0.0
-bullet_speed = 0.09
 
 [node name="CameraRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41277385, 0)

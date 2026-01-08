@@ -1,19 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfwg0ab7c56b2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ic1w"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.40832943, 0.4083295, 0.40832922, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3acv"]
-bg_color = Color(0.7326069, 0.09844301, 0.12015801, 1)
+[ext_resource type="Script" uid="uid://72eai5odaxx" path="res://scripts/health_bar.gd" id="1_imstd"]
+[ext_resource type="Theme" uid="uid://cw60mb36qbf16" path="res://themes/menu_theme.tres" id="1_k3acv"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -22,51 +10,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(20, 20)
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 63.0
+offset_top = -118.0
+offset_right = 663.0
+offset_bottom = -58.0
+grow_vertical = 0
+step = 1.0
+script = ExtResource("1_imstd")
+
+[node name="Panel2" type="Panel" parent="."]
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -8.5925
-offset_top = -7.2825
-offset_right = 8.5925
-offset_bottom = 7.2825
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Panel2" type="Panel" parent="."]
-custom_minimum_size = Vector2(500, 60)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -100.0
-offset_right = 440.0
-offset_bottom = -40.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_2ic1w")
-
-[node name="Control" type="Control" parent="Panel2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="Panel2/Control"]
-custom_minimum_size = Vector2(490, 0)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k3acv")
+theme = ExtResource("1_k3acv")

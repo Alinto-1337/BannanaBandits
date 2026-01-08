@@ -14,7 +14,7 @@ emission = Color(0.7393407, 0.66547173, 0.108352266, 1)
 script = ExtResource("1_g7af2")
 raycast = NodePath("RayCast3D")
 line_renderer = NodePath("MeshInstance3D")
-near_range = 1.0
+near_range = 0.1
 far_range = 100.0
 
 [node name="RayCast3D" type="RayCast3D" parent="."]

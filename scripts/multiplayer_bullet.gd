@@ -1,7 +1,7 @@
 extends Node3D
 class_name  MultiplayerBullet
 
-var camera_root: Node3D
+var game_controller: GameController
 
 # Raycast
 @export var raycast: RayCast3D
@@ -24,19 +24,28 @@ func _process(_delta: float) -> void:
 	# global_position = start_pos + start_impulse_direction * t + gravity_factor * Vector3.DOWN
 	
 	
-	pass
+	pass;
 
 
 func _ready() -> void:
+	
+	game_controller = GameController.instance;
+	if game_controller == null:
+		printerr("No GameController found in the scene, damage wont work");
 	
 	var raycast_target := raycast_start_pos - raycast_shoot_direction * far_range;
 	
 	raycast.position = raycast_start_pos - raycast_shoot_direction * near_range;
 	raycast.target_position = raycast_target;
-	
+	raycast.force_raycast_update()
 	if raycast.is_colliding():
 		print("colliding with {col}".format({ "col": (raycast.get_collider() as Node3D).name }));
 		line_renderer.points = [line_start_pos, raycast.get_collision_point()];
+		
+		if multiplayer.is_server():  # ----- DAMAGE 
+			DebugView.set_value("hit", raycast.get_collider().name)
+			if raycast.get_collider() is Player3D:
+				_deal_damage_to_player(raycast.get_collider());
 	else: 
 		print("colliding w NATHANG ;-;");
 		line_renderer.points = [line_start_pos, raycast_target];
@@ -48,6 +57,12 @@ func _ready() -> void:
 	add_child(_suicide_timer)
 	_suicide_timer.start(0.1);
 	
+	
+	pass
+
+func _deal_damage_to_player(player: Node3D):
+	
+	game_controller.server_register_damage_to_peer(int(player.name), "Handy")
 	
 	pass
 
