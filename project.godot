@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Incredible Role-playing Legends"
+config/name="AntonLisborg_ShooterGame"
 run/main_scene="uid://b0okwjhgesjkm"
 config/features=PackedStringArray("4.5")
 config/icon="res://icon.svg"

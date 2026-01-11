@@ -26,6 +26,7 @@ grow_vertical = 0
 step = 1.0
 value = 50.0
 script = ExtResource("1_imstd")
+lerp_speed = 8.0
 
 [node name="Panel2" type="Panel" parent="."]
 custom_minimum_size = Vector2(10, 10)

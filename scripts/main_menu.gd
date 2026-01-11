@@ -1,12 +1,13 @@
 extends Node
 
-
 @export var main_menu_panel: CanvasItem
 @export_group("Join Server")
 @export var join_server_panel: CanvasItem
 @export var adress_input_line: LineEdit
 @export var port_input_line: LineEdit
 
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func back_to_main_menu():
 	main_menu_panel.visible = true
