@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6pnmo5jggqmo"]
+[gd_scene load_steps=5 format=3 uid="uid://b6pnmo5jggqmo"]
 
 [ext_resource type="Script" uid="uid://fohoclbs8fgp" path="res://scripts/level_select.gd" id="1_33ao3"]
 [ext_resource type="Theme" uid="uid://cw60mb36qbf16" path="res://themes/menu_theme.tres" id="2_38i0n"]
+[ext_resource type="Texture2D" uid="uid://cew6x7cdo1gkc" path="res://Textures/ui/navigation_e.svg" id="2_lko3h"]
+[ext_resource type="Texture2D" uid="uid://c7ct1obunw0yh" path="res://Textures/ui/navigation_w.svg" id="3_7vpfx"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("start_match_button", "previous_level_button", "next_level_button", "level_name_label")]
 layout_mode = 3
@@ -63,6 +65,9 @@ offset_right = -3.0
 offset_bottom = 36.999817
 grow_horizontal = 0
 grow_vertical = 2
+icon = ExtResource("2_lko3h")
+icon_alignment = 1
+expand_icon = true
 
 [node name="NextLevelButton" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(74, 74)
@@ -75,6 +80,9 @@ offset_top = -37.000183
 offset_right = 78.0
 offset_bottom = 36.999817
 grow_vertical = 2
+icon = ExtResource("3_7vpfx")
+icon_alignment = 1
+expand_icon = true
 
 [node name="LevelNameLabel" type="Label" parent="Panel"]
 layout_mode = 1
@@ -83,6 +91,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "<Sample Text>"
 horizontal_alignment = 1
 vertical_alignment = 1
 

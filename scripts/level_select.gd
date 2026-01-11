@@ -12,9 +12,12 @@ var _current_index: int;
 func _ready() -> void:
 	_level_spawner = GameController.instance.level_spawner;
 	
-	if not multiplayer.is_server(): 
+	if not is_multiplayer_authority() or not multiplayer.is_server(): 
 		visible = false;
-		
+		queue_free();
+		return;
+	
+	_update_level()
 	
 	previous_level_button.pressed.connect(_on_previous_level_button_pressed);
 	next_level_button.pressed.connect(_on_next_level_button_pressed);

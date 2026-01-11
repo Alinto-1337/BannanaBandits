@@ -1,11 +1,12 @@
-[gd_scene load_steps=19 format=4 uid="uid://citpthsxfmnse"]
+[gd_scene load_steps=23 format=4 uid="uid://citpthsxfmnse"]
 
-[ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_ltjn6"]
+[ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player/player.gd" id="1_ltjn6"]
 [ext_resource type="PackedScene" uid="uid://dfwg0ab7c56b2" path="res://scene_nodes/GameHUD.tscn" id="2_6gvdm"]
-[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_qdk22"]
+[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player/player_gun.gd" id="2_qdk22"]
 [ext_resource type="Script" path="res://scripts/follow_joint_3d.gd" id="2_x8nuj"]
 [ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_66y7s"]
-[ext_resource type="Script" path="res://scripts/player_skeleton.gd" id="4_27ed2"]
+[ext_resource type="Script" uid="uid://m081h71j88ki" path="res://scripts/player/player_skeleton.gd" id="4_27ed2"]
+[ext_resource type="Script" uid="uid://cxldwhbnlp32t" path="res://scripts/follow.gd" id="6_73vtr"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ltjn6"]
 properties/0/path = NodePath(".:position")
@@ -17,9 +18,161 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:target_camera_rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:is_crouching")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:spawn_pos")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_ltjn6"]
 size = Vector3(0.05, 0.05, 0.15)
+
+[sub_resource type="Animation" id="Animation_73vtr"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CameraRoot/Guntarget:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.00039044023, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CameraRoot/Guntarget:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.636, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../CameraRoot/Guntarget:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.87837684, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../CameraRoot/Guntarget:rotation:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../CameraRoot/Guntarget:rotation:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../CameraRoot/Guntarget:rotation:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_6gvdm"]
+resource_name = "gun_fire"
+length = 0.13333501
+step = 0.016666668
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CameraRoot/Guntarget:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0, 0.9075712, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.05, 0.13333334, 0.4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CameraRoot/Guntarget:rotation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.05, 0.13333334, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../CameraRoot/Guntarget:rotation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0, 0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.05, 0.13333334, 0.4)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../CameraRoot/Guntarget:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.00039044023, -0.2, 0, 0.2, 0, 0.00039044023, -0.2, 0, 0.2, 0, 0.00039044023, -0.2, 0, 0.2, 0, 0.00039044023, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.05, 0.13333334, 0.4)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../CameraRoot/Guntarget:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.636, -0.2, 0, 0.2, 0, 0.636, -0.2, 0, 0.2, 0, 0.636, -0.2, 0, 0.2, 0, 0.636, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.05, 0.13333334, 0.4)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../CameraRoot/Guntarget:position:z")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 1),
+"points": PackedFloat32Array(-0.8126197, -0.2, 0, 0.06666667, 0.003948152, -0.5949607, -0.03333333, -0.03859663, 0.033590812, -0.23086458, -0.8126197, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.05, 0.13333334)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rd2gw"]
+_data = {
+&"RESET": SubResource("Animation_73vtr"),
+&"gun_fire": SubResource("Animation_6gvdm")
+}
 
 [sub_resource type="Compositor" id="Compositor_27ed2"]
 
@@ -211,21 +364,30 @@ bind/38/pose = Transform3D(7.481162e-08, 0.065261856, 0.9978677, 1.2994442e-08, 
 albedo_color = Color(0.21970367, 0.67957175, 0.77169436, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ltjn6"]
+radius = 0.27734375
 height = 2.2139893
 
-[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_rotation_root", "body_rotation_root")]
+[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("camera_rotation_root", "camera", "body_rotation_root", "feet_rotation_root", "hat", "collision_capsule")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 input_ray_pickable = false
 script = ExtResource("1_ltjn6")
-walk_speed = 6.0
-sprint_speed = 10.0
-jump_power = 15.0
+walk_speed = 4.0
+sprint_speed = 8.0
+jump_power = 10.0
 gravity = -0.3
 max_fallspeed = -20.0
 camera_rotation_root = NodePath("CameraRoot")
+camera = NodePath("CameraRoot/HeadNode/Node3D/Camera3D")
 smooth_camera = true
-camera_rotation_stiffness = 15.0
+camera_rotation_stiffness = 20.0
 body_rotation_root = NodePath("test_character2")
 body_rotation_degree = 30.0
+feet_rotation_root = NodePath("FeetRotation")
+hat = NodePath("test_character2/Armature/Skeleton3D/Hat")
+crouch_depth = -1.1
+crouch_stiffness = 7.0
+collision_capsule = NodePath("CollisionShape3D")
+scope_zoom_factor = 0.6
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ltjn6")
@@ -233,13 +395,13 @@ replication_config = SubResource("SceneReplicationConfig_ltjn6")
 [node name="Control" parent="." instance=ExtResource("2_6gvdm")]
 
 [node name="Gun" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
-transform = Transform3D(1, 0, 0, 0, 1, 1.4901161e-07, 0, -1.4901161e-07, 1, 0.00039044023, 0.64036167, -0.87837684)
+transform = Transform3D(1, 0, 0, 0, 1, 1.4901161e-07, 0, -1.4901161e-07, 1, 0.00039044023, 0.64036167, -0.7560753)
 script = ExtResource("2_x8nuj")
 rotation_stiffness = 16.0
 target_node = NodePath("../CameraRoot/Guntarget")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gun"]
-transform = Transform3D(1, 0, 0, 0, 0.38912386, -0.92118543, 0, 0.92118543, 0.38912386, 0, -0.048460126, 0.08338839)
+transform = Transform3D(1, 0, 0, 0, 0.38912386, -0.92118543, 0, 0.92118543, 0.38912386, 0, 0.018810749, 0.0037261248)
 mesh = SubResource("BoxMesh_ltjn6")
 skeleton = NodePath("../../CameraRoot")
 
@@ -249,32 +411,46 @@ mesh = SubResource("BoxMesh_ltjn6")
 skeleton = NodePath("../../../CameraRoot")
 
 [node name="RightHandPlacement" type="Node3D" parent="Gun/MeshInstance3D"]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0.04, 0.097, 0.041)
+transform = Transform3D(-0.99999994, 8.742277e-08, 0, -8.7422784e-08, -1, 2.9802322e-08, 0, 2.9802322e-08, 1, 0.039999995, 0.053298533, 0.022539794)
 
 [node name="LeftHandPlacement2" type="Node3D" parent="Gun/MeshInstance3D"]
-transform = Transform3D(-1, -8.742277e-08, 0, 8.742278e-08, -0.99999994, 0, 0, 0, 0.99999994, -0.04, 0.097, 0.041)
+transform = Transform3D(-0.99999994, -8.742276e-08, 0, 8.7422784e-08, -0.9999999, 2.9802322e-08, 0, 2.9802322e-08, 0.9999999, -0.04, 0.053298533, 0.022539794)
 
-[node name="player_gun" type="Node3D" parent="Gun" node_paths=PackedStringArray("camera_head")]
+[node name="player_gun" type="Node3D" parent="Gun" node_paths=PackedStringArray("camera", "anim_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 4.2632564e-14, 0, -4.2632564e-14, 1, 0, 0.067270756, -0.07966226)
 script = ExtResource("2_qdk22")
 bullet_scene = ExtResource("3_66y7s")
 fire_cooldown = 200.0
-camera_head = NodePath("../../CameraRoot/HeadNode")
+camera = NodePath("../../CameraRoot/HeadNode/Node3D")
+anim_player = NodePath("AnimationPlayer")
 
-[node name="CameraRoot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41277385, 0)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Gun/player_gun"]
+libraries = {
+&"": SubResource("AnimationLibrary_rd2gw")
+}
+
+[node name="CameraRoot" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("6_73vtr")
+target = NodePath("../test_character2/HeadTarget")
 
 [node name="HeadNode" type="Node3D" parent="CameraRoot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6183064, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0396433, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraRoot/HeadNode"]
+[node name="Node3D" type="Node3D" parent="CameraRoot/HeadNode"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraRoot/HeadNode/Node3D"]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
 compositor = SubResource("Compositor_27ed2")
 fov = 80.0
 
 [node name="Guntarget" type="Node3D" parent="CameraRoot"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.4901161e-07, 0, -1.4901161e-07, 1, 0.00039044023, 0.22758782, -0.87837684)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00039044023, 0.636, -0.87837684)
 
 [node name="test_character2" type="Node3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.022, 0)
+transform = Transform3D(0.20000002, 0, 0, 0, 0.20000002, 0, 0, 0, 0.20000002, 0, 0, 0)
+
+[node name="HeadTarget" type="Node3D" parent="test_character2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 
 [node name="Armature" type="Node3D" parent="test_character2"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
@@ -654,7 +830,7 @@ script = ExtResource("4_27ed2")
 camera_root = NodePath("../../../../CameraRoot/HeadNode")
 
 [node name="RightArmIK3D" type="SkeletonIK3D" parent="test_character2/Armature/Skeleton3D" node_paths=PackedStringArray("camera_root")]
-transform = Transform3D(0.05, 0, 0, 0, 0, -0.05, 0, 0.05, 0, 0, 0, 0.0011)
+transform = Transform3D(0.05, 0, 0, 0, 0, -0.05, 0, 0.05, 0, 0, 0, 0)
 root_bone = &"Shoulder.R"
 tip_bone = &"Wrist.R"
 script = ExtResource("4_27ed2")
@@ -666,6 +842,18 @@ root_bone = &"Shoulder.L"
 tip_bone = &"Wrist.L"
 script = ExtResource("4_27ed2")
 camera_root = NodePath("../../../../Gun/MeshInstance3D/LeftHandPlacement2")
+
+[node name="RightLegIK3D" type="SkeletonIK3D" parent="test_character2/Armature/Skeleton3D" node_paths=PackedStringArray("camera_root")]
+root_bone = &"UpperLeg.R"
+tip_bone = &"Foot.R"
+script = ExtResource("4_27ed2")
+camera_root = NodePath("../../../../FeetRotation/RightFeetTargets")
+
+[node name="LeftLegIK3D2" type="SkeletonIK3D" parent="test_character2/Armature/Skeleton3D" node_paths=PackedStringArray("camera_root")]
+root_bone = &"UpperLeg.L"
+tip_bone = &"Foot.L"
+script = ExtResource("4_27ed2")
+camera_root = NodePath("../../../../FeetRotation/LeftFeetTargets")
 
 [node name="Hat" type="BoneAttachment3D" parent="test_character2/Armature/Skeleton3D"]
 transform = Transform3D(0.9819402, -0.004023392, 0.1891483, 0.18888238, 0.077939205, -0.9789018, -0.010803552, 0.99695, 0.07729154, 7.610937e-05, -0.0030391077, 0.0480679)
@@ -686,3 +874,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_27ed2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ltjn6")
+
+[node name="FeetRotation" type="Node3D" parent="."]
+
+[node name="LeftFeetTargets" type="Node3D" parent="FeetRotation"]
+transform = Transform3D(1.9106853e-15, 4.3711392e-08, -1, 0.99999994, -4.3711392e-08, 0, -4.3711385e-08, -1.0000001, -4.371139e-08, -0.114, -1.027, 0.059065875)
+
+[node name="RightFeetTargets" type="Node3D" parent="FeetRotation"]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 0.114, -1.027, 0.059065875)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bewgphssfmrlo"]
+[gd_scene load_steps=4 format=3 uid="uid://bewgphssfmrlo"]
 
-[ext_resource type="Script" uid="uid://blrslqjstg2km" path="res://scripts/spectator_player.gd" id="1_0pevn"]
-[ext_resource type="PackedScene" uid="uid://b6pnmo5jggqmo" path="res://scene_nodes/level_select_ui.tscn" id="2_0poex"]
+[ext_resource type="Script" uid="uid://blrslqjstg2km" path="res://scripts/player/spectator_player.gd" id="1_0pevn"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0pevn"]
 properties/0/path = NodePath(".:position")
@@ -28,7 +27,3 @@ mesh = SubResource("SphereMesh_0pevn")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" parent="CanvasLayer" instance=ExtResource("2_0poex")]

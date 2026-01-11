@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccx78fanse4qw"]
+
+[ext_resource type="Script" uid="uid://cmsr41e84hkm8" path="res://pause_menu.gd" id="1_dp6v0"]
+[ext_resource type="PackedScene" uid="uid://b0okwjhgesjkm" path="res://scenes/menu.tscn" id="2_ucxri"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ucxri"]
+font_size = 40
+
+[node name="Control" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dp6v0")
+main_menu_scene = ExtResource("2_ucxri")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelPauseMenuFade"
+
+[node name="PauseMenuPanel" type="PanelContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(504, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PauseMenuPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "NOT paused"
+label_settings = SubResource("LabelSettings_ucxri")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenuPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PauseMenuPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Button3" type="Button" parent="PauseMenuPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="button_down" from="PauseMenuPanel/MarginContainer/HBoxContainer/Button" to="." method="toggle_visibility"]
+[connection signal="button_down" from="PauseMenuPanel/MarginContainer/HBoxContainer/Button3" to="." method="quit_game"]

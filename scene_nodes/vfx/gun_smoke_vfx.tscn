@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://p1g8i03nptna"]
+
+[ext_resource type="Texture2D" uid="uid://jm4nymy8ks0l" path="res://Textures/blackSmoke20.png" id="1_31yvc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4vcp"]
+transparency = 1
+albedo_color = Color(0.76, 0.76, 0.76, 0.039215688)
+albedo_texture = ExtResource("1_31yvc")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_k5gdr"]
+material = SubResource("StandardMaterial3D_u4vcp")
+size = Vector2(0.4, 0.4)
+
+[sub_resource type="Curve" id="Curve_31yvc"]
+_data = [Vector2(0, 0.99999994), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="GunSmokeVfx" type="CPUParticles3D"]
+emitting = false
+lifetime = 4.609999999999999
+one_shot = true
+explosiveness = 0.41
+lifetime_randomness = 0.4
+mesh = SubResource("QuadMesh_k5gdr")
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.05
+initial_velocity_max = 0.2
+scale_amount_curve = SubResource("Curve_31yvc")

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://cw60mb36qbf16"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://cw60mb36qbf16"]
 
 [ext_resource type="FontFile" uid="uid://ulanhwnc83ly" path="res://Citrova Sans.otf" id="1_funo8"]
 
@@ -73,25 +73,27 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eeq6"]
+bg_color = Color(0.01773239, 0.017732395, 0.017732374, 0.14901961)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah46u"]
 bg_color = Color(0, 0, 0, 0.83137256)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(0.5618184, 0.2334508, 0.26701662, 1)
-border_blend = true
+border_color = Color(0.47, 0.2679, 0.2679, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clnl2"]
-bg_color = Color(0.8232495, 0.3909798, 0.8766309, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
+bg_color = Color(0.88265204, 0.14702159, 0.13893703, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
 border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
@@ -114,6 +116,8 @@ Label/fonts/font = ExtResource("1_funo8")
 LineEdit/fonts/font = ExtResource("1_funo8")
 Panel/styles/panel = SubResource("StyleBoxFlat_wca60")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_syu7e")
+PanelPauseMenuFade/base_type = &"Panel"
+PanelPauseMenuFade/styles/panel = SubResource("StyleBoxFlat_1eeq6")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_ah46u")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_clnl2")
 VBoxContainer/constants/separation = 9

@@ -1,26 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5y4ojcd7mhhp"]
+[gd_scene load_steps=20 format=3 uid="uid://c5y4ojcd7mhhp"]
 
 [ext_resource type="PackedScene" uid="uid://citpthsxfmnse" path="res://scene_nodes/player.tscn" id="1_iq3lw"]
 [ext_resource type="Script" uid="uid://c43t3aob758wb" path="res://scripts/game_controller.gd" id="1_nmwhh"]
-[ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player_spawner.gd" id="1_qct62"]
+[ext_resource type="Script" uid="uid://ec0yy5pjys8u" path="res://scripts/player/player_spawner.gd" id="1_qct62"]
 [ext_resource type="Script" uid="uid://6gywoeya3nwr" path="res://scripts/level_spawner.gd" id="2_31vj5"]
+[ext_resource type="Script" uid="uid://dx7r7cdvx7af2" path="res://scripts/ui/leaderboard.gd" id="2_ry4a6"]
 [ext_resource type="PackedScene" uid="uid://bjc6x220lt225" path="res://scenes/Level1.tscn" id="3_nmwhh"]
 [ext_resource type="PackedScene" uid="uid://bewgphssfmrlo" path="res://scene_nodes/spectator_player.tscn" id="4_nmwhh"]
 [ext_resource type="PackedScene" uid="uid://7ypt3txkjj55" path="res://scenes/Level2.tscn" id="4_wmlc8"]
 [ext_resource type="PackedScene" uid="uid://b2kox2rhhewg0" path="res://scene_nodes/player_root.tscn" id="5_ohnid"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qct62"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_31vj5"]
-sky_material = SubResource("ProceduralSkyMaterial_qct62")
-
-[sub_resource type="Environment" id="Environment_wmlc8"]
-background_mode = 2
-sky = SubResource("Sky_31vj5")
-tonemap_mode = 2
-glow_enabled = true
+[ext_resource type="PackedScene" uid="uid://b6pnmo5jggqmo" path="res://scene_nodes/level_select_ui.tscn" id="8_vq2ab"]
+[ext_resource type="PackedScene" uid="uid://blgyo2y2dae0a" path="res://scenes/level_3.tscn" id="10_gclxx"]
+[ext_resource type="Script" uid="uid://dlb1rcs4y1lst" path="res://scripts/fx_spawner.gd" id="10_qsye6"]
+[ext_resource type="AudioStream" uid="uid://bm2cv04g0wg4q" path="res://Audio/UI/button_press.wav" id="11_qg1r5"]
+[ext_resource type="AudioStream" uid="uid://badur6vvhs274" path="res://Audio/Gun/gun-shot-350315.mp3" id="12_itvlm"]
+[ext_resource type="AudioStream" uid="uid://b2ro6ebim5ec4" path="res://Audio/Footsteps/FootstepsCarpet_BW.7405.wav" id="13_hcerl"]
+[ext_resource type="PackedScene" uid="uid://p1g8i03nptna" path="res://scene_nodes/vfx/gun_smoke_vfx.tscn" id="15_hcerl"]
+[ext_resource type="PackedScene" uid="uid://bkrtjj5ox3c1r" path="res://scene_nodes/vfx/hit_spark_vfx.tscn" id="16_6vc4l"]
+[ext_resource type="PackedScene" uid="uid://dqajwm5qnd204" path="res://scene_nodes/vfx/gun_hit_dot_vfx.tscn" id="18_t5wp8"]
+[ext_resource type="PackedScene" uid="uid://ccx78fanse4qw" path="res://scene_nodes/pause_menu.tscn" id="19_vq2ab"]
 
 [node name="GameSceneRoot" type="Node3D"]
 
@@ -34,15 +32,48 @@ gun_damage = Dictionary[String, int]({
 })
 metadata/_custom_type_script = "uid://c43t3aob758wb"
 
+[node name="LeaderboardContainer" type="PanelContainer" parent="GameController" node_paths=PackedStringArray("list_item_container")]
+modulate = Color(1, 1, 1, 0.8627451)
+custom_minimum_size = Vector2(500, 540)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -270.0
+offset_right = 150.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 540)
+script = ExtResource("2_ry4a6")
+list_item_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameController/LeaderboardContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameController/LeaderboardContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameController/LeaderboardContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Players!"
+
+[node name="HSeparator" type="HSeparator" parent="GameController/LeaderboardContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameController/LeaderboardContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://bjc6x220lt225", "uid://7ypt3txkjj55")
+_spawnable_scenes = PackedStringArray("uid://bjc6x220lt225", "uid://7ypt3txkjj55", "uid://blgyo2y2dae0a")
 spawn_path = NodePath("../LevelSpawner")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_wmlc8")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5778861, 0.8161174, 0, -0.8161174, 0.5778861, 0, 0, 0)
 
 [node name="PlayerSpawner" type="Node" parent="."]
 script = ExtResource("1_qct62")
@@ -58,8 +89,27 @@ spawn_path = NodePath("..")
 [node name="LevelSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.79, 0)
 script = ExtResource("2_31vj5")
+level_select_ui = ExtResource("8_vq2ab")
 levels = Dictionary[String, PackedScene]({
+"Crusty Showdown": ExtResource("10_gclxx"),
 "Gyatt": ExtResource("4_wmlc8"),
 "Sigma": ExtResource("3_nmwhh")
 })
 metadata/_custom_type_script = "uid://6gywoeya3nwr"
+
+[node name="FXSpawner" type="Node" parent="."]
+script = ExtResource("10_qsye6")
+sfx_reg = Dictionary[String, AudioStream]({
+"footstep": ExtResource("13_hcerl"),
+"gun_hit": ExtResource("11_qg1r5"),
+"gun_hit_player": ExtResource("11_qg1r5"),
+"gun_shot": ExtResource("12_itvlm")
+})
+vfx_reg = Dictionary[String, PackedScene]({
+"gun_barrel_smoke": ExtResource("15_hcerl"),
+"gun_hit_dot": ExtResource("18_t5wp8"),
+"hit_spark": ExtResource("16_6vc4l")
+})
+metadata/_custom_type_script = "uid://dlb1rcs4y1lst"
+
+[node name="Control" parent="." instance=ExtResource("19_vq2ab")]

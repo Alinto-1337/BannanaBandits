@@ -13,6 +13,7 @@ static var instance: GameController;
 var match_scores : Array[Dictionary];
 var current_match_index : int = 0;
 var player_healths: Dictionary[int, int];
+var dead_players: Array[int]
 
 var is_match_active : bool = false;
 
@@ -24,8 +25,14 @@ signal match_ended;
 signal match_started;
 
 func _ready() -> void:
-	MultiplayerManager.on_peer_connected.connect(on_peer_connected);
+	NetworkManager.peer_connected.connect(on_peer_connected);
 	instance = self;
+
+func _process(delta: float) -> void:
+	
+	if is_match_active and Input.is_action_just_pressed("debug_f2"):
+		end_match()
+		
 
 func on_peer_connected(_id : int):
 	
@@ -42,8 +49,8 @@ func start_match():
 	is_match_active = true
 	current_match_index += 1
 	server_set_all_players_health(max_health);
-	
-	
+
+
 
 func get_current_match_scores():
 	return match_scores.get(current_match_index)
@@ -52,9 +59,13 @@ func get_current_match_scores():
 
 func server_register_damage_to_peer(peer_id: int, gun: String):
 	if not multiplayer.is_server(): return;
-	print("WAAAAAAA")
-	print(peer_id)
 	if not player_healths.has(peer_id) or not gun_damage.has(gun): return
+	if player_healths.get(peer_id) - gun_damage.get(gun) < 1:
+		player_spawner.set_player_state(peer_id, PlayerSpawner.PlayerState.Spectator)
+		dead_players.append(peer_id);
+		if _get_multiplayer_peer_id_list().size() - dead_players.size() == 1:
+			end_match();
+	
 	server_set_player_health(peer_id, player_healths.get(peer_id) - gun_damage.get(gun))
 
 func server_set_all_players_health(health: int) -> void:

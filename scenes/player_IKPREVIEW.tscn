@@ -1,9 +1,9 @@
 [gd_scene load_steps=19 format=4 uid="uid://53mb01m5vm35"]
 
-[ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player.gd" id="1_y81q8"]
-[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player_gun.gd" id="2_u3f2a"]
+[ext_resource type="Script" uid="uid://b471qv8q6o8iw" path="res://scripts/player/player.gd" id="1_y81q8"]
+[ext_resource type="Script" uid="uid://bcw6eo20m3mxr" path="res://scripts/player/player_gun.gd" id="2_u3f2a"]
 [ext_resource type="PackedScene" uid="uid://ci0q4hqi5j31v" path="res://scene_nodes/bullet.tscn" id="3_kppyv"]
-[ext_resource type="Script" uid="uid://m081h71j88ki" path="res://scripts/player_skeleton.gd" id="4_atcmi"]
+[ext_resource type="Script" uid="uid://m081h71j88ki" path="res://scripts/player/player_skeleton.gd" id="4_atcmi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y81q8"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -256,13 +256,10 @@ transform = Transform3D(1, 0, 0, 0, 0.38912386, 0.92118543, 0, -0.92118543, 0.38
 mesh = SubResource("BoxMesh_ltjn6")
 skeleton = NodePath("../..")
 
-[node name="player_gun" type="Node3D" parent="CameraRoot/MeshInstance3D/MeshInstance3D2" node_paths=PackedStringArray("camera_head")]
+[node name="player_gun" type="Node3D" parent="CameraRoot/MeshInstance3D/MeshInstance3D2"]
 script = ExtResource("2_u3f2a")
 bullet_scene = ExtResource("3_kppyv")
 fire_cooldown = 200.0
-camera_head = NodePath("../../../HeadNode")
-bullet_gravity_factor = 0.0
-bullet_speed = 0.09
 
 [node name="RightHandPlacement" type="Node3D" parent="CameraRoot/MeshInstance3D"]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0.057607643, 0.09738362, 0.041136444)

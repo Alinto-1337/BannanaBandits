@@ -1,6 +1,6 @@
 extends Node
 
-@export var game_scene: PackedScene
+
 @export var main_menu_panel: CanvasItem
 @export_group("Join Server")
 @export var join_server_panel: CanvasItem
@@ -17,9 +17,9 @@ func quit_application():
 
 func _on_start_server_pressed():
 	
-	var error = MultiplayerManager.create_server(7777, 2)
-	if error == OK:
-		load_game_scene()
+	await NetworkManager.create_lobby(NetworkManager.LobbyVisibility.PUBLIC)
+	
+	load_game_scene()
 
 func _on_join_server_pressed():
 	main_menu_panel.visible = false
@@ -27,10 +27,8 @@ func _on_join_server_pressed():
 	return
 
 func _on_join_server_confirm_pressed():
-	var error = MultiplayerManager.join_server(adress_input_line.text, port_input_line.text.to_int())
-	print(error_string(error))
-	if error == OK:
-		load_game_scene()
+	await NetworkManager.join_lobby({ "address": adress_input_line.text })
+	load_game_scene()
 
 func load_game_scene():
-	get_tree().change_scene_to_packed(game_scene)
+	get_tree().change_scene_to_file("res://scenes/game_scee.tscn")

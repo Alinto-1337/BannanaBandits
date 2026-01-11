@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://7ypt3txkjj55"]
+[gd_scene load_steps=9 format=3 uid="uid://7ypt3txkjj55"]
 
 [ext_resource type="Material" uid="uid://mvhr4itlevbi" path="res://materials/ground_material.tres" id="1_g8psw"]
 [ext_resource type="PackedScene" uid="uid://c08ouiauy8by6" path="res://scene_nodes/BuildingBlocks/LongFence.tscn" id="2_kkoku"]
 [ext_resource type="PackedScene" uid="uid://cbny5mfskfdbd" path="res://scene_nodes/BuildingBlocks/house.tscn" id="3_l6gr7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kncvy"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+sky_top_color = Color(0.213, 0.42008334, 0.71, 1)
+sky_horizon_color = Color(0.6845067, 0.6914662, 0.70884436, 1)
+sky_curve = 0.034989003
+ground_bottom_color = Color(0.2, 0.17583333, 0.142, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_curve = 0.004999979
+sun_angle_max = 44.6
+sun_curve = 0.0764342
 
 [sub_resource type="Sky" id="Sky_6ovph"]
 sky_material = SubResource("ProceduralSkyMaterial_kncvy")
@@ -16,6 +22,9 @@ background_mode = 2
 sky = SubResource("Sky_6ovph")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_l6gr7"]
+data = PackedVector3Array(-11.999999, -0.2, 11.999999, -11.999999, -0.2, -11.999999, -11.999999, 0.2, -11.999999, 11.999999, -0.2, -11.999999, -11.999999, -0.2, -11.999999, -11.999999, -0.2, 11.999999, -11.999999, 0.2, -11.999999, -11.999999, -0.2, -11.999999, 11.999999, -0.2, -11.999999, -11.999999, 0.2, -11.999999, -11.999999, 0.2, 11.999999, -11.999999, -0.2, 11.999999, -11.999999, -0.2, 11.999999, -11.999999, 0.2, 11.999999, 11.999999, 0.2, 11.999999, 11.999999, 0.2, 11.999999, -11.999999, 0.2, 11.999999, -11.999999, 0.2, -11.999999, -11.999999, -0.2, 11.999999, 11.999999, -0.2, 11.999999, 11.999999, -0.2, -11.999999, 11.999999, 0.2, 11.999999, 11.999999, -0.2, 11.999999, -11.999999, -0.2, 11.999999, 11.999999, -0.2, -11.999999, 11.999999, -0.2, 11.999999, 11.999999, 0.2, 11.999999, 11.999999, -0.2, -11.999999, 11.999999, 0.2, -11.999999, -11.999999, 0.2, -11.999999, -11.999999, 0.2, -11.999999, 11.999999, 0.2, -11.999999, 11.999999, 0.2, 11.999999, 11.999999, 0.2, 11.999999, 11.999999, 0.2, -11.999999, 11.999999, -0.2, -11.999999)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l6gr7"]
 
@@ -45,11 +54,20 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1
 [node name="LongFence4" parent="StaticBody3D/CSGCombiner3D" instance=ExtResource("2_kkoku")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.3839402, -11)
 
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_l6gr7")
+
 [node name="House" parent="." instance=ExtResource("3_l6gr7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2969298, 0.1970259, 0.9558301)
 
 [node name="Spawnpoint" type="Node3D" parent="." groups=["SpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45119786, 1.9115467, 7.7090287)
+
+[node name="Spawnpoint3" type="Node3D" parent="." groups=["SpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0633755, 1.9115467, 0.8932481)
+
+[node name="Spawnpoint4" type="Node3D" parent="." groups=["SpawnPoints"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8790607, 1.9115467, 4.730844)
 
 [node name="Spawnpoint2" type="Node3D" parent="." groups=["SpawnPoints"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45119786, 1.9115467, -6.0859337)
@@ -59,3 +77,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45119786, 1.9115467, -6.085
 [node name="CollisionShape3D" type="CollisionShape3D" parent="worldbound"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49257898, 0)
 shape = SubResource("WorldBoundaryShape3D_l6gr7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.95179886, 0.039682757, -0.30414492, 0.26522785, 0.39155957, 0.8810989, 0.15405528, -0.9192967, 0.36216095, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 61.0
+directional_shadow_pancake_size = 6.0

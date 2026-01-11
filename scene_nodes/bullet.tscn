@@ -6,23 +6,27 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4g6pf"]
 albedo_color = Color(0.88158095, 0.6454146, 0.12485228, 1)
 emission_enabled = true
-emission = Color(0.7393407, 0.66547173, 0.108352266, 1)
+emission = Color(2.5982795, 2.3533657, 0.49901804, 1)
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_4g6pf"]
 
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("raycast", "line_renderer")]
+visible = false
 script = ExtResource("1_g7af2")
 raycast = NodePath("RayCast3D")
 line_renderer = NodePath("MeshInstance3D")
-near_range = 0.1
+near_range = 0.5
 far_range = 100.0
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, -1.03, 0)
+collision_mask = 4294967295
+hit_from_inside = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_4g6pf")
 mesh = SubResource("ImmediateMesh_4g6pf")
 script = ExtResource("2_4g6pf")
-points = Array[Vector3]([Vector3(0, 10, 0), Vector3(0, 0, 0)])
-start_thickness = 0.05
-end_thickness = 0.05
+points = Array[Vector3]([])
+start_thickness = 0.01
+end_thickness = 0.01
